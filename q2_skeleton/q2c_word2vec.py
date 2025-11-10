@@ -38,6 +38,11 @@ def naive_softmax_loss_and_gradient(
     """
 
     ### YOUR CODE HERE
+    outer_word_vec = outside_vectors[outside_word_idx]
+    arr = outer_word_vec.T @ center_word_vec
+    sf_vec = softmax(arr)
+    loss = -np.log(sf_vec)
+    
     raise NotImplementedError
     ### END YOUR CODE
 
