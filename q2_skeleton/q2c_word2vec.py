@@ -146,7 +146,7 @@ def skipgram(current_center_word, outside_words, word2ind,
         curr_loss, curr_g_center, curr_o_vecs = word2vec_loss_and_gradient(c_vec,o_ind,outside_vectors,dataset)
         loss+=curr_loss
         grad_center_vecs += curr_g_center
-        grad_outside_vectors += curr_o_vecs
+        grad_outside_vectors[c_ind] += curr_o_vecs
     
 
     ### END YOUR CODE
