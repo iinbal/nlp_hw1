@@ -44,9 +44,10 @@ def naive_softmax_loss_and_gradient(
     loss = -np.log(y_o)
     one_hot_vec = np.zeros_like(sf_x)
     one_hot_vec[outside_word_idx] = 1
-    one_hot_vec -= sf_x
-    grad_center_vec = outside_vectors.T @ one_hot_vec
-    raise NotImplementedError
+    vec = sf_x - one_hot_vec 
+    grad_center_vec = outside_vectors.T @ vec
+    grad_outside_vecs = np.outer(vec, center_word_vec)
+    
     ### END YOUR CODE
 
     return loss, grad_center_vec, grad_outside_vecs
