@@ -80,7 +80,26 @@ def neg_sampling_loss_and_gradient(
     indices = [outside_word_idx] + neg_sample_word_indices
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    
+    #compute loss
+    curr_outside_vecs = outside_vectors[indices,:]
+    dot_products = np.dot(curr_outside_vecs, center_word_vec)
+    sigs = sigmoid(dot_products)
+    
+    loss = -np.log(sigs[0]) - np.sum(np.log(1 - sigs[1:]))
+    
+    #compute grad_center_vec
+    grad_center_vec = (sigs[0] - 1) * curr_outside_vecs[0]
+    grad_center_vec += np.dot(sigs[1:], curr_outside_vecs[1:])
+
+
+    #compute grad_outside_vecs
+    grad_outside_vecs = np.zeros_like(outside_vectors)
+    grad_coeffs = sigs.copy()
+    grad_coeffs[0] -= 1
+    for i, idx in enumerate(indices):
+        grad_outside_vecs[idx] += grad_coeffs[i] * center_word_vec
+    
     ### END YOUR CODE
 
     return loss, grad_center_vec, grad_outside_vecs
