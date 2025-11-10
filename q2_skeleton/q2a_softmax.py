@@ -1,5 +1,5 @@
 import numpy as np
-
+import math
 
 def softmax(x):
     """Compute the softmax function for each row of the input x.
@@ -20,6 +20,12 @@ def softmax(x):
         ### END YOUR CODE
     else:
         # Vector
+        c = (-1)*np.max(x)
+        num_elems = x.size
+        exp_arr = np.exp(x) #change it to in-place?
+        elem_sum = np.sum(exp_arr)
+        sf_arr = exp_arr / elem_sum
+
         ### YOUR CODE HERE
         raise NotImplementedError
         ### END YOUR CODE
